@@ -18,43 +18,45 @@ const getRacas = (request, response) => {
 
 
 const addRaca = (request, response) => {
-    const {nome, pesoMaximo} = request.body;
-    pool.query(`INSERT INTO racas (nome, pesomaximo) 
-    values ($1, $2) returning codigo, nome, pesomaximo`,
-    [nome, pesoMaximo],
+    const {nome, pesomaximo} = request.body;
+    pool.query(`insert into racas (nome, pesomaximo) 
+    values ($1, $2)
+    returning codigo, nome, pesomaximo`, 
+    [nome, pesomaximo] , 
     (error, results) => {
         if (error){
             return response.status(400).json({
-                status : 'error', 
-                message : 'Erro ao inserir a raça: ' + error
-            })
+                status : 'error',
+                message: 'Erro ao inserir a raca!'
+            });
         }
         response.status(200).json({
-            status : "success" , message : "Raça criada.",
-            objeto: results.rows[0]
-        })
+            status : 'success' , message : "raca criada!",
+            objeto : results.rows[0]
+        });
     })
 }
 
 const updateRaca = (request, response) => {
-    const {codigo, nome, pesoMaximo} = request.body;
-    pool.query(`UPDATE racas SET nome=$1, pesomaximo=$2
-    where codigo=$3 returning codigo, nome, pesomaximo`,
-    [nome, pesoMaximo, codigo],
+    const {codigo, nome, pesomaximo} = request.body;
+    pool.query(`UPDATE racas
+	SET nome=$1, pesomaximo=$2
+	WHERE codigo=$3
+    returning codigo, nome, pesomaximo`, 
+    [nome, pesomaximo, codigo] , 
     (error, results) => {
         if (error){
             return response.status(400).json({
-                status : 'error', 
-                message : 'Erro ao alterar a raça ' + error
-            })
+                status : 'error',
+                message: 'Erro ao atualizar a raca!'
+            });
         }
         response.status(200).json({
-            status : "success" , message : "Raça alterada.",
-            objeto: results.rows[0]
-        })
+            status : 'success' , message : "raca atualizada!",
+            objeto : results.rows[0]
+        });
     })
 }
-
 const deleteRaca = (request, response) => {
     const codigo = parseInt(request.params.codigo);
     pool.query(`DELETE FROM racas WHERE codigo = $1`,
