@@ -1,12 +1,12 @@
 -- criação da tabela prédios
 create table racas (
 	codigo serial primary key, 
-	nome varchar(40) not null	
-	pesoMaximo decimal(4,2) not null, 
+	nome varchar(40) not null, 
+	pesomaximo integer not null
 );
 
 -- inserindo registros na tabela prédios
-insert into raca (nome, pesoMaximo) 
+insert into racas (nome, pesoMaximo) 
 values ('Maltes', 12)
 returning codigo, nome;
 

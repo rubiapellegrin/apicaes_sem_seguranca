@@ -19,8 +19,8 @@ const getRacas = (request, response) => {
 
 const addRaca = (request, response) => {
     const {nome, pesoMaximo} = request.body;
-    pool.query(`INSERT INTO racas (nome, pesoMaximo) 
-    values ($1, $2) returning codigo, nome, pesoMaximo`,
+    pool.query(`INSERT INTO racas (nome, pesomaximo) 
+    values ($1, $2) returning codigo, nome, pesomaximo`,
     [nome, pesoMaximo],
     (error, results) => {
         if (error){
@@ -38,8 +38,8 @@ const addRaca = (request, response) => {
 
 const updateRaca = (request, response) => {
     const {codigo, nome, pesoMaximo} = request.body;
-    pool.query(`UPDATE racas SET nome=$1, pesoMaximo=$2
-    where codigo=$3 returning codigo, nome, pesoMaximo`,
+    pool.query(`UPDATE racas SET nome=$1, pesomaximo=$2
+    where codigo=$3 returning codigo, nome, pesomaximo`,
     [nome, pesoMaximo, codigo],
     (error, results) => {
         if (error){
